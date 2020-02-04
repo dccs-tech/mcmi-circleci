@@ -11,15 +11,6 @@ MCMI_REGISTRY="${MCMI_REGISTRY:-registry.hub.docker.com}"
 echo "Fetching upstream MCMI tags"
 MCMI_TAGS="$(wget -q "https://${MCMI_BASE_REGISTRY}/v1/repositories/${MCMI_BASE_IMAGE}/tags" -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}')"
 
-echo "$MCMI_TAGS"
-echo "$MCMI_REGISTRY_USER"
-echo "$MCMI_REGISTRY_PASSWORD"
-echo "$MCMI_IMAGE"
-echo "$MCMI_CA_KEY"
-echo "$MCMI_CA_CERT"
-echo "$MCMI_KEY"
-echo "$MCMI_CERT"
-
 echo "Logging into DockerHub"
 echo "$MCMI_REGISTRY_PASSWORD" | docker login --username "$MCMI_REGISTRY_USER" --password-stdin "${MCMI_REGISTRY}"
 
@@ -33,8 +24,8 @@ do
         --build-arg MCMI_KEY \
         --build-arg MCMI_CERT \
         --file "Dockerfile" \
-        --tag "${MCMI_IMAGE}:${TAG}" .
+        --tag "${MCMI_REGISTRY}/${MCMI_IMAGE}:${TAG}" .
 
     echo "Pushing MCMI tag: ${TAG}"
-    docker push "${MCMI_IMAGE}:${TAG}"
+    docker push "${MCMI_REGISTRY}/${MCMI_IMAGE}:${TAG}"
 done
