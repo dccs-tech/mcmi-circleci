@@ -1,0 +1,34 @@
+version: 2
+
+jobs:
+  deploy-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Deploy Docker tags
+          command: |
+            # Need to specify:
+            #
+            # * MCMI_REGISTRY_USER
+            # * MCMI_REGISTRY_PASSWORD
+            # * MCMI_IMAGE
+            # * MCMI_CA_KEY
+            # * MCMI_CA_CERT
+            # * MCMI_KEY
+            # * MCMI_CERT
+            #
+            ./build.sh
+
+workflows:
+  version: 2
+  deploy:
+    triggers:
+      - schedule:
+          cron: "*/10 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - deploy-docker
