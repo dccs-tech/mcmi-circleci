@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker build \
+    --build-arg MCMI_VERSION="${DOCKER_TAG}" \
+    --build-arg MCMI_CA_KEY \
+    --build-arg MCMI_CA_CERT \
+    --build-arg MCMI_KEY \
+    --build-arg MCMI_CERT \
+    --file "$DOCKERFILE_PATH" \
+    --tag "$IMAGE_NAME" .
