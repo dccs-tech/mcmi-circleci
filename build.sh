@@ -36,5 +36,5 @@ do
         --tag "${MCMI_IMAGE}:${TAG}" .
 
     echo "Pushing MCMI tag: ${TAG}"
-    docker push "${MCMI_REGISTRY}/${MCMI_IMAGE}:${TAG}"
+    docker push "${MCMI_IMAGE}:${TAG}"
 done
