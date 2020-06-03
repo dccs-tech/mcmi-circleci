@@ -1,17 +1,17 @@
-ARG MCMI_VERSION=latest
-FROM mcmi/mcmi:${MCMI_VERSION}
+ARG ZIMAGI_VERSION=latest
+FROM zimagi/zimagi:${ZIMAGI_VERSION}
 #
 #====================================================================
 # OS environment configuration
 #
-ARG MCMI_CA_KEY
-ARG MCMI_CA_CERT
-ARG MCMI_KEY
-ARG MCMI_CERT
+ARG ZIMAGI_CA_KEY
+ARG ZIMAGI_CA_CERT
+ARG ZIMAGI_KEY
+ARG ZIMAGI_CERT
 
-RUN store-key /etc/ssl/private/mcmi-ca.key "${MCMI_CA_KEY}"
-RUN store-cert /usr/local/share/ca-certificates/mcmi-ca.crt "${MCMI_CA_CERT}"
+RUN store-key /etc/ssl/private/zimagi-ca.key "${ZIMAGI_CA_KEY}"
+RUN store-cert /usr/local/share/ca-certificates/zimagi-ca.crt "${ZIMAGI_CA_CERT}"
 RUN update-ca-certificates
 
-RUN store-key /etc/ssl/private/mcmi.key "${MCMI_KEY}"
-RUN store-cert /etc/ssl/certs/mcmi.crt "${MCMI_CERT}"
+RUN store-key /etc/ssl/private/zimagi.key "${ZIMAGI_KEY}"
+RUN store-cert /etc/ssl/certs/zimagi.crt "${ZIMAGI_CERT}"
