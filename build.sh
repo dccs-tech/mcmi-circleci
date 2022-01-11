@@ -17,14 +17,16 @@ echo "$ZIMAGI_REGISTRY_PASSWORD" | docker login --username "$ZIMAGI_REGISTRY_USE
 for TAG in $ZIMAGI_TAGS
 do
     echo "Building Zimagi tag: ${TAG}"
-    docker build \
+    docker build --force-rm --no-cache \
+        --file Dockerfile \
+        --tag "${ZIMAGI_REGISTRY}/${ZIMAGI_IMAGE}:${TAG}" \
         --build-arg ZIMAGI_VERSION="${TAG}" \
         --build-arg ZIMAGI_CA_KEY \
         --build-arg ZIMAGI_CA_CERT \
         --build-arg ZIMAGI_KEY \
         --build-arg ZIMAGI_CERT \
-        --file "Dockerfile" \
-        --tag "${ZIMAGI_REGISTRY}/${ZIMAGI_IMAGE}:${TAG}" .
+        --build-arg ZIMAGI_DATA_KEY \
+        .
 
     echo "Pushing Zimagi tag: ${TAG}"
     docker push "${ZIMAGI_REGISTRY}/${ZIMAGI_IMAGE}:${TAG}"
