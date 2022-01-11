@@ -15,3 +15,6 @@ RUN update-ca-certificates
 
 RUN store-key /etc/ssl/private/zimagi.key "${ZIMAGI_KEY}"
 RUN store-cert /etc/ssl/certs/zimagi.crt "${ZIMAGI_CERT}"
+
+ARG ZIMAGI_DATA_KEY
+RUN echo "${ZIMAGI_DATA_KEY}" > "/var/local/keys/data.key"
