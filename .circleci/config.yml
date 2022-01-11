@@ -2,7 +2,8 @@ version: 2
 
 jobs:
   deploy-docker:
-    machine: true
+    machine:
+      image: ubuntu-2004:202111-02
     steps:
       - checkout
       - run:
